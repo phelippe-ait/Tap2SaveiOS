@@ -6,14 +6,26 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var authHandle: AuthStateDidChangeListenerHandle?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        FirebaseApp.configure()
+        
+        authHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            if let user = user {
+                let userID = user.uid
+                print("User logged in: \(userID)")
+            } else {
+                print("No user logged in")
+            }
+            
+        }
         return true
     }
 
