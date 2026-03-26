@@ -30,28 +30,29 @@ class NewAccountVC: UIViewController {
                         return
                     }
                     
-                    // User registered successfully and is automatically signed in
-//            self?.showAlert(title: "Success", message: "Account created successfully")
-                  
+                    // Todo show alert
+                
+            guard let authUser = authResult?.user else { self?.showAlert(title: "Error", message: "Something went wrong")
+                return
+            }
+            
             let db = Firestore.firestore()
             
             let data: [String: Any] = [
-                "uid": self!.userID(),
+                "uid": authUser.uid,
                 "name": name,
                 "lastName": lastName,
                 "email": email
             ]
             
-            db.collection("users").addDocument(data: data) { error in
+            
+            db.collection("users").document(authUser.uid).setData(data) { error in
                 if let error = error {
                     print("Error writing document: \(error)")
-                } else {
-                    
+                    return
                 }
-            }
-            
-            self?.performSegue(withIdentifier: "toBarController", sender: nil)
-                    
+                self?.performSegue(withIdentifier: "toBarController", sender: nil)
+            }    
                 }
     }
     
@@ -59,10 +60,6 @@ class NewAccountVC: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
-    }
-    
-    func userID() -> String {
-        return Auth.auth().currentUser!.uid
     }
         
     

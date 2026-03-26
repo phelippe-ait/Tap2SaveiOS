@@ -5,12 +5,19 @@ import FirebaseFirestore
 class HomeVC: UIViewController {
     
     @IBOutlet weak var welcomeUserLabel: UILabel!
+    @IBOutlet weak var tapBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadUserName()
     }
+    
+    override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            
+            tapBtn.layer.cornerRadius = tapBtn.bounds.width / 2
+        }
     
     func loadUserName() {
         guard let userId = Auth.auth().currentUser?.uid else {
@@ -38,5 +45,9 @@ class HomeVC: UIViewController {
             DispatchQueue.main.async {
                 self?.welcomeUserLabel.text = "Welcome, \(name)!"        }
         }
+    }
+    
+    func styleTapBtb() {
+        tapBtn.clipsToBounds = true
     }
 }
