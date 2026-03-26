@@ -1,8 +1,8 @@
 import Foundation
 
 struct Jar: Codable {
-    let id: String
     let name: String
-    let contents: Double
+    let balance: Double
+    let goal: Double
     let date: Date
 }

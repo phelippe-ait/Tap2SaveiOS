@@ -1,4 +1,5 @@
 import UIKit
+import Firebase
 
 class NewSaveVC: UIViewController {
         
@@ -7,6 +8,10 @@ class NewSaveVC: UIViewController {
         dismiss(animated: true)
     }
     
+    
+    @IBOutlet weak var tableViewJars: UITableView!
+    
+    var jars: [String] = ["vacations", "car", "savings", "other"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
