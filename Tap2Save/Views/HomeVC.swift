@@ -2,6 +2,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+// Class for Home screen View Controller
 class HomeVC: UIViewController {
     
     @IBOutlet weak var welcomeUserLabel: UILabel!
@@ -26,6 +27,7 @@ class HomeVC: UIViewController {
         refreshTotalBalance()
     }
     
+    // Refreshes the balance after adding new entries
     func refreshTotalBalance() {
         loadBalance { [weak self] total in
                     DispatchQueue.main.async {
@@ -34,7 +36,7 @@ class HomeVC: UIViewController {
                 }
     }
 
-    
+    // Fetches user's name to display at the top
     func loadUserName() {
         guard let userId = Auth.auth().currentUser?.uid else {
             welcomeUserLabel.text = "Welcome!"
@@ -63,6 +65,7 @@ class HomeVC: UIViewController {
         }
     }
     
+    // Fetches the balance from Firebase
     func loadBalance(completion: @escaping (Double) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {
             completion(0.0)
@@ -87,7 +90,7 @@ class HomeVC: UIViewController {
         }
     }
     
-    
+    // Styles the button Tap to Save
     func styleTapBtb() {
         tapBtn.clipsToBounds = true
     }

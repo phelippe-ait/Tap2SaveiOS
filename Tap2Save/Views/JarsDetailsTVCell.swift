@@ -4,24 +4,17 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-
+// Class to manager Jars table view
 class JarsDetailsTVCell: UITableViewCell {
     
     
     @IBOutlet weak var jarIcon: UIImageView!
     @IBOutlet weak var jarNameLabel: UILabel!
     
-    
+    // Gives the cell a jar name 
     func configure(with jar: Jar) {
         
         jarNameLabel.text = jar.name
        }
-    
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
-    }
 
 }

@@ -2,6 +2,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+// Class for Jars View Controller
 class JarsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var jarsTV: UITableView!
@@ -11,15 +12,18 @@ class JarsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Data source for Table view
         jarsTV.dataSource = self
         jarsTV.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
+        
             loadJars()
         }
     
+    // Load jars after changes
     func loadJars() {
         fetchJars { [weak self] jars in
             self?.jars = jars
@@ -29,6 +33,7 @@ class JarsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
+    // Fetches jars from Firebase
     func fetchJars(completion: @escaping ([Jar]) -> Void) {
         guard let userId = Auth.auth().currentUser?.uid else {
             completion([])
@@ -72,6 +77,7 @@ class JarsVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         return jars.count
     }
     
+    // Redirects to Jars details for the selected row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "JarCell", for: indexPath) as! JarsDetailsTVCell
         

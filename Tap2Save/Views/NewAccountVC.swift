@@ -4,7 +4,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
-
+// Class for the sign up screen View controller
 class NewAccountVC: UIViewController {
     
     @IBOutlet weak var nameTF: UITextField!
@@ -52,7 +52,7 @@ class NewAccountVC: UIViewController {
                     return
                 }
                 self?.performSegue(withIdentifier: "toBarController", sender: nil)
-            }    
+            }
                 }
     }
     

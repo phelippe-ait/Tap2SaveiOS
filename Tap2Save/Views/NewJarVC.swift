@@ -3,7 +3,7 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
-
+// Class fot the new jar view controller
 class NewJarVC: UIViewController {
     
     @IBOutlet weak var newJatTF: UITextField!
@@ -27,6 +27,7 @@ class NewJarVC: UIViewController {
                 "date": Timestamp(date: Date())
             ]
         
+        // Validates if the path exists and saves the new jar for the logged in user
         db.collection("users").document("\(Auth.auth().currentUser?.uid ?? "")").collection("jars").addDocument(data: data) { error in
             
             if let error = error {

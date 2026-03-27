@@ -2,6 +2,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+// Class for Jar details View Controller
 class JarDetailsVC: UIViewController {
     
     var selectedJar: Jar?
@@ -13,6 +14,7 @@ class JarDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Fetches information from the selected cell in Table view
         guard let jar = selectedJar else { return }
         
         jarNameLabel.text = jar.name

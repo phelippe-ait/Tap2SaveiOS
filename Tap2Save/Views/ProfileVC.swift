@@ -2,8 +2,10 @@ import UIKit
 import FirebaseAuth
 import FirebaseFirestore
 
+// Class for the profile view controller
 class ProfileVC: UIViewController {
     
+    // Logs out and redirect to login screen
     @IBAction func signOutPress(_ sender: UIButton) {
         let firebaseAuth = Auth.auth()
         do {
@@ -14,6 +16,7 @@ class ProfileVC: UIViewController {
         }
     }
     
+    // Button - Deletes user data from Firebase
     @IBAction func deleteAllDataTapped(_ sender: UIButton) {
         let alert = UIAlertController(
             title: "Delete all data?",
@@ -38,6 +41,7 @@ class ProfileVC: UIViewController {
         present(alert, animated: true)
     }
     
+    // Button - Deletes user account and data from Firebase
     @IBAction func deleteAccountTapped(_ sender: UIButton) {
         let alert = UIAlertController(
             title: "Delete your account and all data?",
@@ -54,6 +58,7 @@ class ProfileVC: UIViewController {
         present(alert, animated: true)
     }
     
+    // Deletes user data from Firebase
     func deleteAllUserData(completion: @escaping (Bool) -> Void) {
         guard let uid = Auth.auth().currentUser?.uid else {
             completion(false)
@@ -129,7 +134,7 @@ class ProfileVC: UIViewController {
                     return
                 }
                 
-                // delete /users/{uid} document after all jars are gone
+                // delete users document after all jars are gone
                 userRef.delete { error in
                     if let error = error {
                         print("Error deleting user document: \(error.localizedDescription)")
@@ -142,6 +147,7 @@ class ProfileVC: UIViewController {
         }
     }
     
+    // Deletes user account and data from Firebase
     func deleteAccount() {
         deleteAllUserData { success in
             guard success else {

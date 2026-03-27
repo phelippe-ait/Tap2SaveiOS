@@ -2,6 +2,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+// Class for the New entry view controller
 class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
         
     @IBOutlet weak var newSaveTF: UITextField!
@@ -28,6 +29,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         dismiss(animated: true)
     }
     
+    // Fetches jars from Firebase
     func fetchJars() {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
@@ -65,6 +67,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
                     }
                 }
         }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return jars.count

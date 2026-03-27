@@ -1,23 +1,6 @@
 import FirebaseFirestore
 
-func createUser(with name: String, lastName: String, email: String) {
-    let db = Firestore.firestore()
-    
-    let data: [String: Any] = [
-        "name": name,
-        "lastName": lastName,
-        "email": email,
-    ]
-    
-    db.collection("users").addDocument(data: data) { error in
-        if let error = error {
-            print("Error writing document: \(error)")
-        } else {
-            print("Test successful!")
-        }
-    }
-}
-
+// Uses firebase frame work to start a new collection
 func saveJar(for userId: String) {
     let db = Firestore.firestore()
     
