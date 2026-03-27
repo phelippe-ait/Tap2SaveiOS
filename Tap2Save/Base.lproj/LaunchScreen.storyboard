@@ -3,8 +3,8 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,16 +16,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" misplaced="YES" image="icon" translatesAutoresizingMaskIntoConstraints="NO" id="QI1-SZ-dwG">
-                                <rect key="frame" x="71" y="301" width="250" height="250"/>
-                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TAP 2 SAVE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5ib-ul-vVI">
+                                <rect key="frame" x="40" y="298" width="313" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="app_icon" translatesAutoresizingMaskIntoConstraints="NO" id="ANt-hG-wij">
+                                <rect key="frame" x="76" y="403" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="5CT-KU-p4Y"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="AccentColor"/>
                         <constraints>
-                            <constraint firstItem="QI1-SZ-dwG" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="7d5-dY-mno"/>
-                            <constraint firstItem="QI1-SZ-dwG" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xzo-gS-g9l"/>
+                            <constraint firstItem="ANt-hG-wij" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="76" id="40u-tf-uQB"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ANt-hG-wij" secondAttribute="trailing" constant="77" id="FfB-KN-1Px"/>
+                            <constraint firstItem="5ib-ul-vVI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="180" id="HqV-5j-3BR"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5ib-ul-vVI" secondAttribute="trailing" constant="40" id="Z9x-wT-ALJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ANt-hG-wij" secondAttribute="bottom" constant="253" id="ldD-FY-wk7"/>
+                            <constraint firstItem="ANt-hG-wij" firstAttribute="top" secondItem="5ib-ul-vVI" secondAttribute="bottom" constant="69" id="o4p-Sr-7eM"/>
+                            <constraint firstItem="5ib-ul-vVI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="yTb-um-Bpb"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -35,9 +48,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon" width="500" height="500"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="app_icon" width="1024" height="1024"/>
+        <namedColor name="AccentColor">
+            <color red="0.20000000000000001" green="0.49803921568627452" blue="0.50196078431372548" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
     </resources>
 </document>

@@ -6,6 +6,7 @@ class HomeVC: UIViewController {
     
     @IBOutlet weak var welcomeUserLabel: UILabel!
     @IBOutlet weak var tapBtn: UIButton!
+    @IBOutlet weak var totalBalanceLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -14,10 +15,25 @@ class HomeVC: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
-            
-            tapBtn.layer.cornerRadius = tapBtn.bounds.width / 2
-        }
+        super.viewDidLayoutSubviews()
+        
+        tapBtn.layer.cornerRadius = tapBtn.bounds.width / 2
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        refreshTotalBalance()
+    }
+    
+    func refreshTotalBalance() {
+        loadBalance { [weak self] total in
+                    DispatchQueue.main.async {
+                        self?.totalBalanceLabel.text = String(format: "$%.2f", total)
+                    }
+                }
+    }
+
     
     func loadUserName() {
         guard let userId = Auth.auth().currentUser?.uid else {
@@ -47,7 +63,33 @@ class HomeVC: UIViewController {
         }
     }
     
+    func loadBalance(completion: @escaping (Double) -> Void) {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            completion(0.0)
+            return
+        }
+        
+        let db = Firestore.firestore()
+        
+        db.collection("users").document(userId).collection("jars").getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching transactions: \(error.localizedDescription)")
+                completion(0.0)
+                return
+            }
+            
+            let total = snapshot?.documents.reduce(0.0) { result, doc in
+                let balance = doc.data()["balance"] as? Double ?? 0.0
+                return result + balance
+            } ?? 0.0
+            
+            completion(total)
+        }
+    }
+    
+    
     func styleTapBtb() {
         tapBtn.clipsToBounds = true
     }
+    
 }
