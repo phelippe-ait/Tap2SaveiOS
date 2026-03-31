@@ -5,6 +5,14 @@ import FirebaseFirestore
 // Class for the profile view controller
 class ProfileVC: UIViewController {
     
+    @IBOutlet weak var darkMode: UISwitch!
+    
+    @IBAction func darkModeChanged(_ sender: UISwitch) {
+        print("Switch is \(sender.isOn ? "on" : "off")")
+        ThemeManager.shared.setDarkMode(sender.isOn)
+    }
+    
+    
     // Logs out and redirect to login screen
     @IBAction func signOutPress(_ sender: UIButton) {
         let firebaseAuth = Auth.auth()

@@ -30,6 +30,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            self.window?.makeKeyAndVisible()
         
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        ThemeManager.shared.applyTheme()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
