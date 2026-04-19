@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var newAccountBtn: UIButton!
     
+    // Checks the login fields and signs the user in with Firebase Auth.
     @IBAction func loginButtonPress(_ sender: UIButton) {
         
         guard let email = emailTextField.text, !email.isEmpty,
@@ -36,17 +37,17 @@ class ViewController: UIViewController {
         }
     }
 
-    
+    // Runs after the login screen has been loaded into memory.
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
     }
     
+    // Prepares data before moving to another screen with a segue.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     }
 
 
 }
-

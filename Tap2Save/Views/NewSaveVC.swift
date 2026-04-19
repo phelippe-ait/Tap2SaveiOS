@@ -11,6 +11,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     var jars: [Jar] = []
     var selectedJarId: String?
     
+    // Checks the new amount and selected jar before saving an entry.
     @IBAction func saveNewEntry(_ sender: UIButton) {
         
         guard let text = newSaveTF.text, !text.isEmpty,
@@ -25,9 +26,10 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         }
         
         addValueToJar(jarId: jarId, amount: amount)
-        }
+    }
     
     // Fetches jars from Firebase
+    // Loads all jars for the logged-in user so one can be selected.
     func fetchJars() {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
@@ -67,10 +69,12 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         }
     
     
+    // Returns the number of jar rows to show in the table.
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return jars.count
         }
         
+        // Configures each table row with jar information and selection state.
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "JarCell", for: indexPath)
             
@@ -84,6 +88,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
             return cell
         }
         
+        // Saves which jar the user tapped in the table.
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             selectedJarId = jars[indexPath.row].id
             tableView.reloadData()
@@ -91,6 +96,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     
     
     
+    // Sets up the table view, keyboard type, and first jar fetch.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -104,6 +110,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         fetchJars()
     }
     
+    // Refreshes the list of jars whenever this screen appears again.
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -117,6 +124,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
     }
     
     // Logic to add amount to total balance
+    // Saves the entry in Firestore and increases the selected jar balance.
     func addValueToJar(jarId: String, amount: Double) {
             guard let uid = Auth.auth().currentUser?.uid else { return }
             
@@ -158,10 +166,17 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
                                         title: "🎉 Goal reached!",
                                         message: "You reached your goal for \(selectedJar.name)!"
                                     ) {
-                                        self?.dismiss(animated: true)
+                                        self?.goToJarsScreen()
                                     }
                                     return
                                 }
+                            }
+
+                            self?.showAlert(
+                                title: "Saved",
+                                message: "Your saving amount was added successfully."
+                            ) {
+                                self?.goToJarsScreen()
                             }
                         }
                     }
@@ -171,6 +186,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
             }
         }
     
+    // Shows an alert and optionally runs extra code after OK is pressed.
     func showAlert(title: String, message: String, onOk: (() -> Void)? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
@@ -179,5 +195,13 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         })
         
         present(alert, animated: true)
+    }
+
+    // Closes this screen and switches the user to the jars tab.
+    private func goToJarsScreen() {
+        dismiss(animated: true) { [weak self] in
+            self?.tabBarController?.selectedIndex = 1
+            self?.presentingViewController?.tabBarController?.selectedIndex = 1
+        }
     }
 }
