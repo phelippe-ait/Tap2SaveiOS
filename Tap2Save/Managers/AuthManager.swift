@@ -9,6 +9,7 @@ final class AuthManager {
     private let auth = Auth.auth()
     private let db = Firestore.firestore()
 
+    // Creates a new auth account and stores the user's basic details in Firestore.
     func signUp(
         name: String,
         lastName: String,
@@ -48,6 +49,7 @@ final class AuthManager {
         }
     }
 
+    // Signs in an existing user and returns their Firebase user id.
     func signIn(
         email: String,
         password: String,
@@ -72,6 +74,7 @@ final class AuthManager {
         }
     }
 
+    // Signs out the currently logged-in user from Firebase Auth.
     func signOut() -> Result<Void, Error> {
         do {
             try auth.signOut()
@@ -81,6 +84,7 @@ final class AuthManager {
         }
     }
 
+    // Returns the current user's id if someone is logged in.
     func getCurrentUserID() -> String? {
         auth.currentUser?.uid
     }

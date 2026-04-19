@@ -12,11 +12,13 @@ final class ThemeManager {
         UserDefaults.standard.bool(forKey: darkModeKey)
     }
 
+    // Stores the dark mode preference and applies it immediately.
     func setDarkMode(_ enabled: Bool) {
         UserDefaults.standard.set(enabled, forKey: darkModeKey)
         applyTheme()
     }
 
+    // Applies the saved interface style to the app's main window.
     func applyTheme() {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else {

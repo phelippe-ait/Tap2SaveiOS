@@ -12,6 +12,7 @@ class NewAccountVC: UIViewController {
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     
+    // Validates the sign-up form and creates a new account in Firebase.
     @IBAction func createAccount(_ sender: UIButton) {
         
         guard let name = nameTF.text, !name.isEmpty,
@@ -56,6 +57,7 @@ class NewAccountVC: UIViewController {
                 }
     }
     
+    // Shows an alert message for account creation errors.
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
@@ -63,6 +65,7 @@ class NewAccountVC: UIViewController {
     }
         
     
+    // Runs after the account creation screen has loaded.
     override func viewDidLoad() {
         super.viewDidLoad()
                 

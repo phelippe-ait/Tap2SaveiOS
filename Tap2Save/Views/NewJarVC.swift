@@ -11,6 +11,7 @@ class NewJarVC: UIViewController {
     
     
     // Saves and closes the sheet
+    // Validates the fields and saves a new jar for the current user.
     @IBAction func saveJarBtn(_ sender: UIButton) {
         dismiss(animated: true)
         
@@ -39,6 +40,7 @@ class NewJarVC: UIViewController {
         }
     
         
+        // Runs after the new jar screen has finished loading.
         override func viewDidLoad() {
             super.viewDidLoad()
 
