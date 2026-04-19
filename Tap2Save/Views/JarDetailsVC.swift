@@ -21,5 +21,15 @@ class JarDetailsVC: UIViewController {
         balanceLabel.text = String(format: "$%.2f", jar.balance)
         goalLabel.text = String(format: "$%.2f", jar.goal)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let jar = selectedJar else { return }
+        
+        jarNameLabel.text = jar.name
+        balanceLabel.text = String(format: "$%.2f", jar.balance)
+        goalLabel.text = String(format: "$%.2f", jar.goal)
+    }
 
 }

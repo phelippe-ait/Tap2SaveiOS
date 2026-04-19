@@ -7,8 +7,8 @@ class ProfileVC: UIViewController {
     
     @IBOutlet weak var darkMode: UISwitch!
     
+    // Switch to turn on/off dark mode
     @IBAction func darkModeChanged(_ sender: UISwitch) {
-        print("Switch is \(sender.isOn ? "on" : "off")")
         ThemeManager.shared.setDarkMode(sender.isOn)
     }
     
@@ -174,5 +174,17 @@ class ProfileVC: UIViewController {
                 }
             }
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        darkMode.isOn = ThemeManager.shared.isDarkMode
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        darkMode.isOn = ThemeManager.shared.isDarkMode
     }
 }

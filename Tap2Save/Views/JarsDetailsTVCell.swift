@@ -8,7 +8,6 @@ import FirebaseFirestore
 class JarsDetailsTVCell: UITableViewCell {
     
     
-    @IBOutlet weak var jarIcon: UIImageView!
     @IBOutlet weak var jarNameLabel: UILabel!
     
     // Gives the cell a jar name 

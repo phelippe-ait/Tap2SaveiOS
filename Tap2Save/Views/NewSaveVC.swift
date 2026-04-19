@@ -25,9 +25,7 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         }
         
         addValueToJar(jarId: jarId, amount: amount)
-        
-        dismiss(animated: true)
-    }
+        }
     
     // Fetches jars from Firebase
     func fetchJars() {
@@ -106,6 +104,18 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
         fetchJars()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableViewJars.dataSource = self
+        tableViewJars.delegate = self
+        
+        newSaveTF.delegate = self
+        newSaveTF.keyboardType = .decimalPad
+        
+        fetchJars()
+    }
+    
     // Logic to add amount to total balance
     func addValueToJar(jarId: String, amount: Double) {
             guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -142,19 +152,32 @@ class NewSaveVC: UIViewController, UITableViewDataSource, UITableViewDelegate, U
                             print("Error updating balance: \(error.localizedDescription)")
                             self?.showAlert(title: "Error", message: "Could not update balance.")
                         } else {
-                            print("Amount $\(amount) added successfully")
-                            self?.dismiss(animated: true)
+                            if let selectedJar = self?.jars.first(where: { $0.id == jarId }) {
+                                if newBalance >= selectedJar.goal {
+                                    self?.showAlert(
+                                        title: "🎉 Goal reached!",
+                                        message: "You reached your goal for \(selectedJar.name)!"
+                                    ) {
+                                        self?.dismiss(animated: true)
+                                    }
+                                    return
+                                }
+                            }
                         }
                     }
                 }
+                
+                
             }
         }
     
-    func showAlert(title: String, message: String) {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
-    
-    
+    func showAlert(title: String, message: String, onOk: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            onOk?()
+        })
+        
+        present(alert, animated: true)
+    }
 }
